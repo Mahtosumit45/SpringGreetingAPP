@@ -18,11 +18,13 @@ public class GreetingController {
         this.greetingService = greetingService;
     }
 
-    // GET: Returns a greeting message
+    // GET: Returns a personalized greeting message based on query parameters
     @GetMapping
-    public Map<String, String> getGreeting() {
+    public Map<String, String> getGreeting(@RequestParam(required = false) String firstName,
+                                           @RequestParam(required = false) String lastName) {
         Map<String, String> response = new HashMap<>();
-        response.put("greeting", greetingService.getGreetingMessage());
+        String greetingMessage = greetingService.getGreetingMessage(firstName, lastName);
+        response.put("greeting", greetingMessage);
         return response;
     }
 
@@ -50,6 +52,7 @@ public class GreetingController {
         return response;
     }
 }
+
 
 
 
