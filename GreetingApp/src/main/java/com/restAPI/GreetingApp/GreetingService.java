@@ -1,6 +1,5 @@
 package com.restAPI.GreetingApp;
 
-
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,7 +16,9 @@ public class GreetingService {
         greetings.put(greeting.getId(), greeting);
         return greeting;
     }
-
+    public Greeting getGreetingById(Long id) {
+        return greetings.get(id);
+    }
     private String getGreetingMessage(String firstName, String lastName) {
         if (firstName != null && lastName != null) {
             return "Hello " + firstName + " " + lastName;
