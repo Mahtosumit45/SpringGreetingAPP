@@ -31,6 +31,9 @@ public class GreetingService {
         }
         return null;
     }
+    public boolean deleteGreeting(Long id) {
+        return greetings.remove(id) != null;
+    }
     private String getGreetingMessage(String firstName, String lastName) {
         if (firstName != null && lastName != null) {
             return "Hello " + firstName + " " + lastName;
