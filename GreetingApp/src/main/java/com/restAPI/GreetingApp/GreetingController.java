@@ -32,4 +32,8 @@ public class GreetingController {
                                    @RequestParam(required = false) String lastName) {
         return greetingService.updateGreeting(id, firstName, lastName);
     }
+    @DeleteMapping("/{id}")
+    public String deleteGreeting(@PathVariable Long id) {
+        return greetingService.deleteGreeting(id) ? "Greeting deleted" : "Greeting not found";
+    }
 }
