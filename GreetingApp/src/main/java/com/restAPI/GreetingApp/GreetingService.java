@@ -22,6 +22,15 @@ public class GreetingService {
     public List<Greeting> getAllGreetings() {
         return new ArrayList<>(greetings.values());
     }
+    public Greeting updateGreeting(Long id, String firstName, String lastName) {
+        if (greetings.containsKey(id)) {
+            String message = getGreetingMessage(firstName, lastName);
+            Greeting updatedGreeting = new Greeting(id, message);
+            greetings.put(id, updatedGreeting);
+            return updatedGreeting;
+        }
+        return null;
+    }
     private String getGreetingMessage(String firstName, String lastName) {
         if (firstName != null && lastName != null) {
             return "Hello " + firstName + " " + lastName;
