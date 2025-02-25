@@ -1,8 +1,15 @@
 package com.restAPI.GreetingApp;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Greeting {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+
+    public Greeting() {}
 
     public Greeting(Long id, String message) {
         this.id = id;
