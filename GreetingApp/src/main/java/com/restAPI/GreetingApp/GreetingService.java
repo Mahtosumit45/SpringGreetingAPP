@@ -1,39 +1,45 @@
 package com.restAPI.GreetingApp;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.*;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 @Service
 public class GreetingService {
-    private final Map<Long, Greeting> greetings = new HashMap<>();
-    private Long counter = 1L;
+    @Autowired
+    private GreetingRepository greetingRepository;
 
     public Greeting saveGreeting(String firstName, String lastName) {
         String message = getGreetingMessage(firstName, lastName);
-        Greeting greeting = new Greeting(counter++, message);
-        greetings.put(greeting.getId(), greeting);
-        return greeting;
+        Greeting greeting = new Greeting(null, message);
+        return greetingRepository.save(greeting);
     }
+
     public Greeting getGreetingById(Long id) {
-        return greetings.get(id);
+        return greetingRepository.findById(id).orElse(null);
     }
+
     public List<Greeting> getAllGreetings() {
-        return new ArrayList<>(greetings.values());
+        return greetingRepository.findAll();
     }
+
     public Greeting updateGreeting(Long id, String firstName, String lastName) {
-        if (greetings.containsKey(id)) {
+        if (greetingRepository.existsById(id)) {
             String message = getGreetingMessage(firstName, lastName);
             Greeting updatedGreeting = new Greeting(id, message);
-            greetings.put(id, updatedGreeting);
-            return updatedGreeting;
+            return greetingRepository.save(updatedGreeting);
         }
         return null;
     }
+
     public boolean deleteGreeting(Long id) {
-        return greetings.remove(id) != null;
+        if (greetingRepository.existsById(id)) {
+            greetingRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
+
     private String getGreetingMessage(String firstName, String lastName) {
         if (firstName != null && lastName != null) {
             return "Hello " + firstName + " " + lastName;

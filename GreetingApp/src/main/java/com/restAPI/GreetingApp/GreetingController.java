@@ -1,4 +1,5 @@
 package com.restAPI.GreetingApp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.Map;
 public class GreetingController {
     private final GreetingService greetingService;
 
+    @Autowired  // Ensure this annotation is present
     public GreetingController(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
-
     @PostMapping
     public Greeting saveGreeting(@RequestParam(required = false) String firstName,
                                  @RequestParam(required = false) String lastName) {
